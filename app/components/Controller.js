@@ -1,18 +1,18 @@
 import React from "react";
-import { View, StyleSheet, TouchableOpacity, Text } from "react-native";
+import { View, StyleSheet } from "react-native";
+import Button from "./Button";
 
-export default function Controller(props) {
+export default function Controller({ onPlay, onPause, isPlaying, onReset }) {
     return (
         <View style={styles.container}>
-            <TouchableOpacity>
-                <Text>Play</Text>
-            </TouchableOpacity>
-            <TouchableOpacity>
-                <Text>Reset</Text>
-            </TouchableOpacity>
-            <TouchableOpacity>
-                <Text>Setting</Text>
-            </TouchableOpacity>
+            {isPlaying ? (
+                <Button iconName="pause" fn={onPause} />
+            ) : (
+                <Button iconName="play-arrow" fn={onPlay} />
+            )}
+
+            <Button iconName="refresh" fn={onReset} />
+            <Button iconName="settings" />
         </View>
     );
 }
