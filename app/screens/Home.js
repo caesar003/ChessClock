@@ -3,8 +3,9 @@ import Controller from "../components/Controller";
 import CountDown from "../components/CountDown";
 import Screen from "../components/Screen";
 import Context from "../timer/Context";
+import { defaultPresets } from "../config/presets";
 
-const DEFAULT_TIME = 5;
+const DEFAULT_TIME = defaultPresets[3];
 export default function Home({ navigation }) {
     const { time, setTime } = useContext(Context);
     const [isPlaying, setIsPlaying] = useState(false);
@@ -43,10 +44,11 @@ export default function Home({ navigation }) {
     return (
         <Screen>
             <CountDown
-                minutes={time}
+                minutes={time.min}
                 isPlaying={isPlaying && !sideToMove}
                 idx={0}
                 onSwitchSide={onSwitchSide}
+                increment={time.increment}
             />
             <Controller
                 onPlay={onPlay}
@@ -56,10 +58,11 @@ export default function Home({ navigation }) {
                 onPresetClick={onPresetClick}
             />
             <CountDown
-                minutes={time}
+                minutes={time.min}
                 isPlaying={isPlaying && !!sideToMove}
                 idx={1}
                 onSwitchSide={onSwitchSide}
+                increment={time.increment}
             />
         </Screen>
     );

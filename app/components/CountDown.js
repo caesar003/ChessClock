@@ -5,7 +5,13 @@ import { TouchableWithoutFeedback } from "react-native";
 const minToMillis = (min) => min * 1000 * 60;
 const formatTime = (num) => (num < 10 ? `0${num}` : num || "00");
 
-export default function CountDown({ minutes, isPlaying, onSwitchSide, idx }) {
+export default function CountDown({
+    minutes,
+    isPlaying,
+    onSwitchSide,
+    idx,
+    increment,
+}) {
     const interval = React.useRef(null);
     const [millis, setMillis] = useState(minToMillis(minutes));
     const min = Math.floor(millis / 1000 / 60) % 60;
@@ -18,6 +24,15 @@ export default function CountDown({ minutes, isPlaying, onSwitchSide, idx }) {
                 return;
             }
             const timeLeft = time - 1000;
+            return timeLeft;
+        });
+    };
+    const addIncrement = () => {
+        setMillis((time) => {
+            if (time === 0) {
+                return;
+            }
+            const timeLeft = time + increment * 1000;
             return timeLeft;
         });
     };
@@ -35,8 +50,13 @@ export default function CountDown({ minutes, isPlaying, onSwitchSide, idx }) {
         return () => clearInterval(interval.current);
     }, [isPlaying]);
 
+    const switchSide = () => {
+        addIncrement();
+        onSwitchSide(idx);
+    };
+
     return (
-        <TouchableWithoutFeedback onPress={() => onSwitchSide(idx)}>
+        <TouchableWithoutFeedback onPress={switchSide}>
             <View style={[styles.container, isPlaying && styles.active]}>
                 <Text style={[styles.text, isPlaying && styles.activeText]}>
                     {formatTime(min)}:{formatTime(sec)}
