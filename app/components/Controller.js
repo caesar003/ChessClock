@@ -2,7 +2,7 @@ import React from "react";
 import { View, StyleSheet } from "react-native";
 import Button from "./Button";
 
-export default function Controller({ onPlay, onPause, isPlaying, onReset }) {
+export default function Controller({ onPlay, onPause, isPlaying, onReset, onPresetClick }) {
     return (
         <View style={styles.container}>
             {isPlaying ? (
@@ -12,6 +12,7 @@ export default function Controller({ onPlay, onPause, isPlaying, onReset }) {
             )}
 
             <Button iconName="refresh" fn={onReset} />
+            <Button iconName="timer" fn={onPresetClick} />
             <Button iconName="settings" />
         </View>
     );

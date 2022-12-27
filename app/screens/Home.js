@@ -1,12 +1,13 @@
-import React, { useState } from "react";
+import React, { useContext, useState } from "react";
 import Controller from "../components/Controller";
 import CountDown from "../components/CountDown";
 import Screen from "../components/Screen";
+import Context from "../timer/Context";
 
 const DEFAULT_TIME = 5;
-export default function Home(props) {
-    const [time, setTime] = useState(DEFAULT_TIME);
-    const [isPlaying, setIsPlaying] = useState(true);
+export default function Home({ navigation }) {
+    const { time, setTime } = useContext(Context);
+    const [isPlaying, setIsPlaying] = useState(false);
     const [sideToMove, setSideToMove] = useState(0);
 
     const onPlay = () => {
@@ -34,6 +35,11 @@ export default function Home(props) {
         }
     };
 
+    const onPresetClick = () => {
+        setIsPlaying(false);
+        navigation.navigate("Preset");
+    };
+
     return (
         <Screen>
             <CountDown
@@ -47,6 +53,7 @@ export default function Home(props) {
                 onPause={onPause}
                 isPlaying={isPlaying}
                 onReset={onReset}
+                onPresetClick={onPresetClick}
             />
             <CountDown
                 minutes={time}

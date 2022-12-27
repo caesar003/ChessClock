@@ -3,7 +3,7 @@ import { StyleSheet, Text, View } from "react-native";
 import { TouchableWithoutFeedback } from "react-native";
 
 const minToMillis = (min) => min * 1000 * 60;
-const formatTime = (num) => (num < 10 ? `0${num}` : num);
+const formatTime = (num) => (num < 10 ? `0${num}` : num || "00");
 
 export default function CountDown({ minutes, isPlaying, onSwitchSide, idx }) {
     const interval = React.useRef(null);
